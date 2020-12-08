@@ -1,6 +1,6 @@
 ---
 - name: Instalación de emby
-  hosts: casa
+  hosts: hosts
   become: true
   tasks:
     - name: Actualizando y instalando recursos necesarios
