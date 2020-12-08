@@ -1,0 +1,18 @@
+---
+- name: Instalación de emby
+  hosts: casa
+  become: true
+  tasks:
+    - name: Actualizando y instalando recursos necesarios
+      shell: apt update & apt install wget
+    - name: Descargando emby...
+      shell: wget "https://github.com/MediaBrowser/Emby.Releases/releases/download/4.5.3.0/emby-server-deb_4.5.3.0_amd64.deb"    
+    - name: Instalando emby... "este da error"
+      shell: dpkg -i "emby-server-deb_4.5.3.0_amd64.deb" 
+      ignore_errors: yes
+    - name: Instalando dependencias
+      shell: apt install -y -f
+    - name: Instalando emby 2
+      shell: dpkg -i "emby-server-deb_4.5.3.0_amd64.deb"
+    - name: Eliminando residuos...
+      shell: rm emby-server*
