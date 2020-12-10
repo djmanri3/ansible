@@ -61,15 +61,7 @@
     file:
       path: nextcloud
       state: absent
-
-  - name: Porfavor cuando termine de arrancar el contenedor dirijase...
-    shell: sleep 1
-  - name: sudo nano /var/docker_conf/nextcloud/data/nextcloud/config/config.php
-    shell: sleep 1
-  - name: y añada en el 'trusted_domains' array... lo siguiente
-    shell: sleep 1
-  - name: "____2 => '*',"
-    shell: sleep 10  
+      
   - name: "[NW]"
     shell: sleep 1
 
