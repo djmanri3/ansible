@@ -61,7 +61,11 @@
     file:
       path: nextcloud
       state: absent
+<<<<<<< HEAD
  
+=======
+      
+>>>>>>> 2d3a360f8bed760955ab8c08ff50d5dbe987323d
   - name: "[NW]"
     shell: sleep 1
 
