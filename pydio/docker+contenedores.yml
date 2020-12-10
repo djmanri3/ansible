@@ -1,0 +1,41 @@
+---
+- name: Instalacion de contenedores...
+  hosts: casa
+  become: true
+  tasks:
+  #- name: Actualizando repositorios y instalando docker.io y docker-compose...
+  #  apt:
+  #    name: docker.io, docker-compose
+  #    update-cache: yes
+
+  - name: Comprobacion de que esta instalado [changed]
+    shell: docker -v & docker-compose -v
+
+  - name: creando entorno...
+    file:
+      path: pydio
+      state: directory
+
+  - name: creando entorno 2...
+    copy:
+      src: cont2_pydio.yml
+      dest: pydio/docker-compose.yml
+
+  - name: creando entorno 3...
+    file:
+      path: /var/docker_conf/pydio/pydio_data/config
+      state: directory
+
+  - name: creando entorno 4...
+    file:
+      path: /var/docker_conf/pydio/pydio_data/data
+      state: directory
+
+  - name: Instalando contenedor Pydio...
+    docker_compose:
+      project_src: pydio/
+
+  - name: eliminando residuos...
+    file:
+      path: pydio
+      state: absent

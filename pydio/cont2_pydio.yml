@@ -1,0 +1,28 @@
+---
+version: "2.1"
+services:
+  pydio:
+    image: ghcr.io/linuxserver/pydio
+    container_name: pydio
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      #Configuraciones tipo php, apache etc
+      - /var/docker_conf/pydio/pydio_data/config:/config
+      #Contenido del usuario
+      - /var/docker_conf/pydio/pydio_data/data:/data
+    ports:
+      - 8080:443
+    restart: unless-stopped
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_DATABASE: cells
+      #cambiar contraseña de root
+      MYSQL_ROOT_PASSWORD:
+    ports:
+      - 3306:3306      
