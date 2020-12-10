@@ -1,0 +1,107 @@
+---
+- name: emby + Docker (nextcloud + pydio) ver 1.5
+  hosts: casa
+  become: true
+  tasks:
+  - name: Instalación de emby
+    shell: sleep 5
+
+  - name: Actualizando y instalando recursos necesarios
+    shell: apt update & apt install wget
+
+  - name: Descargando emby...
+    shell: wget "https://github.com/MediaBrowser/Emby.Releases/releases/download/4.5.3.0/emby-server-deb_4.5.3.0_amd64.deb"    
+
+  - name: Instalando emby... "este da error"
+    shell: dpkg -i "emby-server-deb_4.5.3.0_amd64.deb" 
+    ignore_errors: yes
+ #- name: Instalando dependencias
+    shell: apt install -y -f
+ #- name: Instalando emby 2
+ #  shell: dpkg -i "emby-server-deb_4.5.3.0_amd64.deb"
+
+  - name: Eliminando residuos...
+    file:
+      path: /home/{{ansible_user}}/emby-server-deb_4.5.3.0_amd64.deb
+      state: absent 
+
+  - name: "[EW]"
+    shell: sleep 1
+
+# Nextcloud
+  - name: Instalación Nextcloud
+    shell: sleep 5
+
+  - name: Actualizando repositorios e instalando docker.io y docker-compose...
+    apt:
+      name: docker.io, docker-compose
+      update-cache: yes
+
+  - name: Creando entorno
+    file:
+      path: nextcloud
+      state: directory
+
+  - name: Creando entorno 2
+    file:
+      path: /var/www/nextcloud
+      state: directory
+
+  - name: Copiando nextcloud docker-compose...
+    copy:
+      src: nextcloud/cont1_nextcloud.yml
+      dest: nextcloud/docker-compose.yml
+      follow: yes
+
+  - name: Creando contenedor...
+    docker_compose:
+      project_src: nextcloud/
+
+  - name: eliminando residuos...
+    file:
+      path: nextcloud
+      state: absent
+
+  - name: Porfavor cuando termine de arrancar el contenedor dirijase...
+    shell: sleep 1
+  - name: sudo nano /var/docker_conf/nextcloud/data/nextcloud/config/config.php
+    shell: sleep 1
+  - name: y añada en el 'trusted_domains' array... lo siguiente
+    shell: sleep 1
+  - name: "____2 => '*',"
+    shell: sleep 10  
+  - name: "[NW]"
+    shell: sleep 1
+
+#Pydio
+  - name: Instalacion de Pydio
+    shell: sleep 5
+  - name: creando entorno...
+    file:
+      path: pydio
+      state: directory
+
+  - name: creando entorno 2...
+    copy:
+      src: pydio/cont2_pydio.yml
+      dest: pydio/docker-compose.yml
+
+  - name: creando entorno 3...
+    file:
+      path: /var/docker_conf/pydio/pydio_data/config
+      state: directory
+
+  - name: creando entorno 4...
+    file:
+      path: /var/docker_conf/pydio/pydio_data/data
+      state: directory
+
+  - name: Instalando contenedor Pydio...
+    docker_compose:
+      project_src: pydio/
+
+  - name: eliminando residuos...
+    file:
+      path: pydio
+      state: absent
+
