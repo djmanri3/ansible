@@ -13,3 +13,14 @@ x.x.x.x ansible_user=Usuario ansible_become_pass=xxxxxxx
 # Intrupciones:
 
 anisble-playbook -i hosts *.yml
+
+# Nextcloud
+
+- Descomentar en cont1_nextcloud.yml segun la arquitectura que tengais
+- Cambiar hosts: casa en docker+contenedores.yml
+
+# Pydio
+
+- Cambiar rutas de "data" en cont2_pydio.yml
+- Asignar una contraseña a root en cont2_pydio.yml
+- Cambiar hosts: casa en docker+contenedores.yml
