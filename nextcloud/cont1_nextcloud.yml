@@ -1,7 +1,8 @@
 version: '2.0'
 services:
   nextcloudStablex86:
-    image: ownyourbits/nextcloudpi-x86
+    #image: ownyourbits/nextcloudpi-armhf
+    #image: ownyourbits/nextcloudpi-x86
     restart: always
     ports:
       - 4443:4443
