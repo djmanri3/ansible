@@ -30,12 +30,3 @@
   - name: Creando contenedor...
     docker_compose:
       project_src: nextcloud/
-
-  - name: Porfavor cuando termine de arrancar el contenedor dirijase...
-    shell: sleep 5
-  - name: sudo nano /var/docker_conf/nextcloud/data/nextcloud/config/config.php
-    shell: sleep 5
-  - name: y añada en el 'trusted_domains' array... lo siguiente
-    shell: sleep 1
-  - name: "     2 => '*',"
-    shell: sleep 5
