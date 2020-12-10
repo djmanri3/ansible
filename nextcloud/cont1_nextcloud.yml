@@ -1,0 +1,15 @@
+version: '2.0'
+services:
+  nextcloudStablex86:
+    image: ownyourbits/nextcloudpi-x86
+    restart: always
+    ports:
+      - 4443:4443
+      - 443:443
+      - 80:80
+    command:
+      - /bin/bash "apt update"
+      - /bin/bash "apt install nano"
+networks:
+  cloud-network:
+    driver: bridge
